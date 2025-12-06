@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preload" as="image" href="soon.webp" />
   <title>YORKA STUDIO</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -10,7 +11,11 @@
     html, body { height: 100%; }
 
     body {
-      background-image: url("soon.jpg");
+      background-color: #F54608;
+      background-image: url("soon.webp");
+      background-image: image-set(
+        url("soon.webp") type("image/webp")
+      );
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -30,7 +35,7 @@
       background-repeat: no-repeat;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.6s ease;
+      transition: opacity 1s ease;
     }
 
     body.soprano-active::after {
@@ -39,6 +44,13 @@
   </style>
 </head>
 <body>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch(() => {});
+      });
+    }
+  </script>
   <script>
     (() => {
       const target = "soprano";
@@ -51,7 +63,7 @@
         hideTimer = setTimeout(() => {
           document.body.classList.remove("soprano-active");
           hideTimer = null;
-        }, 3000);
+        }, 2000);
       };
 
       window.addEventListener("keydown", (event) => {
